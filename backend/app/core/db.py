@@ -1,8 +1,10 @@
+from decimal import Decimal
+
 from sqlmodel import Session, create_engine, select
 
 from app import crud
 from app.core.config import settings
-from app.models import User, UserCreate
+from app.models import BeverageCreate, User, UserCreate
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
@@ -31,3 +33,32 @@ def init_db(session: Session) -> None:
             is_superuser=True,
         )
         user = crud.create_user(session=session, user_create=user_in)
+
+    beverage_in = BeverageCreate(
+        name="奶茶三兄弟",
+        description="珍珠 椰果 奶冻",
+        price=Decimal(6.0),
+        inventory=100,
+    )
+    crud.create_beverage(session=session, beverage_create=beverage_in)
+    beverage_in = BeverageCreate(
+        name="四季春茶",
+        description="波霸 珍珠 椰果",
+        price=Decimal(5.0),
+        inventory=100,
+    )
+    crud.create_beverage(session=session, beverage_create=beverage_in)
+    beverage_in = BeverageCreate(
+        name="烤珍珠奶茶",
+        description="珍珠 红茶",
+        price=Decimal(5.5),
+        inventory=100,
+    )
+    crud.create_beverage(session=session, beverage_create=beverage_in)
+    beverage_in = BeverageCreate(
+        name="清凉补",
+        description="椰汁 珍珠 芋泥",
+        price=Decimal(7.5),
+        inventory=100,
+    )
+    crud.create_beverage(session=session, beverage_create=beverage_in)
